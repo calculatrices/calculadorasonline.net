@@ -1,0 +1,967 @@
+<html><head><base href=".">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Matemática: Fácil, Rápida e Completa Online</title>
+<meta name="description" content="Resolva cálculos com a Calculadora Matemática online. Simples, eficiente e ideal para operações básicas e avançadas. Experimente agora!">
+<style>
+:root {
+  --primary: #1a237e;     /* Deeper blue */
+  --secondary: #3f51b5;   /* Rich indigo */
+  --accent: #ff4081;      /* Vibrant pink */
+  --light: #f5f5f5;       /* Lighter gray */
+  
+  /* Add new color variables */
+  --gradient-start: #1a237e;
+  --gradient-end: #3f51b5;
+  --text-primary: #2c3e50;
+  --card-shadow: rgba(0,0,0,0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--primary);
+}
+
+/* Header & Logo */
+.header {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  padding: 1rem;
+  color: white;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo svg {
+  width: 40px;
+  height: 40px;
+  animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Navigation */
+.nav {
+  background: var(--light);
+  padding: 1rem;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: var(--primary);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.nav-link:hover {
+  background: var(--secondary);
+  color: white;
+}
+
+/* Mobile Menu */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* Main Content */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--card-shadow);
+  padding: 1.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--secondary), var(--accent));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.current-time {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+/* Calendar */
+.calendar {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar th, .calendar td {
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.calendar td.today {
+  background: var(--secondary);
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+.calendar td.selected {
+  background: var(--accent);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.calendar td:hover {
+  background: var(--light);
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all 0.2s;
+}
+
+/* Weather */
+.weather {
+  text-align: center;
+}
+
+.weather-icon {
+  width: 100px;
+  height: 100px;
+  margin: 1rem auto;
+}
+
+.temperature {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--secondary);
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--light);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.weather-details::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%);
+}
+
+.weather-details:hover::after {
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Holiday List Enhancement */
+#holidays li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+#holidays li:hover {
+  transform: translateX(10px);
+}
+
+.holiday-date {
+  background: var(--secondary);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+/* Footer */
+.footer {
+  background: var(--primary);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
+}
+
+  /* Dark Mode Styles */
+  body.dark-mode {
+    background: #121212;
+    color: #fafafa;
+  }
+  
+  .faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .faq-item {
+    background: var(--light);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    transform: translateX(10px);
+  }
+
+  .faq-item summary {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--primary);
+  }
+
+  .faq-item[open] summary {
+    margin-bottom: 1rem;
+    color: var(--accent);
+  }
+
+  .faq-item p {
+    padding: 0 1rem;
+    line-height: 1.6;
+  }
+
+  /* Dark mode support */
+  body.dark-mode .faq-item {
+    background: #2a2a2a;
+  }
+
+  body.dark-mode .faq-item summary {
+    color: #ffffff;
+  }
+
+body.dark-mode .card {
+  background: #1e1e1e;
+  color: #fafafa;
+}
+
+body.dark-mode .nav {
+  background: #1e1e1e;
+}
+
+body.dark-mode .nav-link {
+  color: #ffffff;
+}
+
+body.dark-mode .weather-details {
+  background: #2a2a2a;
+}
+
+  /* Responsive Design */
+  
+  /* Dropdown Menu Styles */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content a {
+    color: var(--primary);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-content a:hover {
+    background: var(--secondary);
+    color: white;
+    padding-left: 24px;
+  }
+
+  body.dark-mode .dropdown-content {
+    background: #2a2a2a;
+  }
+
+  body.dark-mode .dropdown-content a {
+    color: #ffffff;
+  }
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-list.active {
+    display: flex;
+  }
+
+  .card ul li a:hover {
+    background: var(--secondary);
+    color: white;
+    transform: translateX(10px);
+  }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/luxon@3.0.1/build/global/luxon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='2' width='18' height='20' rx='2'/><line x1='3' y1='10' x2='21' y2='10'/><path d='M7 15h1m4 0h1m4 0h1m-8 4h1m4 0h1'/></svg>"></head>
+<!-- Include the SVG favicon -->
+    
+<body>
+
+<header class="header">
+  <div class="logo">
+     <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="#000">
+        <!-- Calculator Body -->
+        <rect x="8" y="8" width="48" height="48" rx="8" ry="8" fill="#4CAF50"></rect>
+        <!-- Screen -->
+        <rect x="16" y="12" width="32" height="12" fill="#ffffff" rx="2" ry="2"></rect>
+        <!-- Buttons -->
+        <circle cx="20" cy="32" r="3" fill="#ffffff"></circle>
+        <circle cx="32" cy="32" r="3" fill="#ffffff"></circle>
+        <circle cx="44" cy="32" r="3" fill="#ffffff"></circle>
+        <circle cx="20" cy="44" r="3" fill="#ffffff"></circle>
+        <circle cx="32" cy="44" r="3" fill="#ffffff"></circle>
+        <circle cx="44" cy="44" r="3" fill="#ffffff"></circle>
+        <rect x="28" y="52" width="8" height="4" fill="#ffffff"></rect>
+    </svg>
+    <h1>Calculadoras Online</h1>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<nav class="nav">
+  <ul class="nav-list">
+    <li><a href="https://calculadorasonline.net/" class="nav-link">Home</a></li>
+    <li class="dropdown">
+      <a href="https://calculadorasonline.net/calculadoras.html" class="nav-link">Calculadoras</a>
+    </li><li><a href="https://calculadorasonline.net/pol%C3%ADtica-de-privacidade.html" class="nav-link">Política de Privacidade</a></li>
+        <li><a href="https://calculadorasonline.net/contato.html" class="nav-link">Contato</a></li>
+  </ul>
+</nav>
+<main class="main">
+  <div class="content-column" style="max-width: 800px; margin: 0 auto;">
+    <div class="card">
+    <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Calculadora matemática</h2>
+    
+    <div class="calculator-container" style="max-width: 600px; margin: 0 auto; padding: 1rem;">
+        <div class="calculator-display" style="
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.2rem;
+            min-height: 100px;
+            text-align: right;
+            border: 2px solid var(--secondary);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-between;
+            font-family: 'HP Simplified', 'Consolas', monospace;
+            position: relative;
+        ">
+            <div id="history" style="
+                font-size: 1rem;
+                color: var(--secondary);
+                opacity: 0.7;
+                min-height: 1.2rem;
+                width: 100%;
+                overflow-x: auto;
+                white-space: nowrap;
+            "></div>
+            <span id="display" style="
+                font-size: 2.2rem;
+                width: 100%;
+                overflow-x: auto;
+                white-space: nowrap;
+            ">0</span>
+        </div>
+
+        <div class="advanced-functions" style="
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        ">
+            <button class="calc-btn function" onclick="calculateSin()">sin</button>
+            <button class="calc-btn function" onclick="calculateCos()">cos</button>
+            <button class="calc-btn function" onclick="calculateTan()">tan</button>
+            <button class="calc-btn function" onclick="calculatePower()">x^y</button>
+        </div>
+
+        <div class="scientific-functions" style="
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        ">
+            <button class="calc-btn function" onclick="calculateSquareRoot()">√</button>
+            <button class="calc-btn function" onclick="calculateLog()">log</button>
+            <button class="calc-btn function" onclick="calculateLn()">ln</button>
+            <button class="calc-btn function" onclick="calculateFactorial()">n!</button>
+        </div>
+
+        <div class="memory-functions" style="
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        ">
+            <button class="calc-btn memory" onclick="memoryStore()">MS</button>
+            <button class="calc-btn memory" onclick="memoryRecall()">MR</button>
+            <button class="calc-btn memory" onclick="memoryAdd()">M+</button>
+            <button class="calc-btn memory" onclick="memoryClear()">MC</button>
+        </div>
+
+        <div class="calculator-buttons" style="
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 0.8rem;
+        ">
+            <button class="calc-btn clear" onclick="clearAll()">AC</button>
+            <button class="calc-btn clear" onclick="clearEntry()">CE</button>
+            <button class="calc-btn special" onclick="deleteLast()">⌫</button>
+            <button class="calc-btn operator" onclick="appendOperator('/')" style="font-weight: bold;">÷</button>
+            
+            <button class="calc-btn number" onclick="appendNumber('7')">7</button>
+            <button class="calc-btn number" onclick="appendNumber('8')">8</button>
+            <button class="calc-btn number" onclick="appendNumber('9')">9</button>
+            <button class="calc-btn operator" onclick="appendOperator('*')">×</button>
+            
+            <button class="calc-btn number" onclick="appendNumber('4')">4</button>
+            <button class="calc-btn number" onclick="appendNumber('5')">5</button>
+            <button class="calc-btn number" onclick="appendNumber('6')">6</button>
+            <button class="calc-btn operator" onclick="appendOperator('-')">−</button>
+            
+            <button class="calc-btn number" onclick="appendNumber('1')">1</button>
+            <button class="calc-btn number" onclick="appendNumber('2')">2</button>
+            <button class="calc-btn number" onclick="appendNumber('3')">3</button>
+            <button class="calc-btn operator" onclick="appendOperator('+')">+</button>
+            
+            <button class="calc-btn number" onclick="appendNumber('0')" style="grid-column: span 2;">0</button>
+            <button class="calc-btn" onclick="appendNumber('.')">.</button>
+            <button class="calc-btn equals" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <style>
+        .calculator-container {
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+
+        .calc-btn {
+            padding: 1rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calc-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .calc-btn:active::after {
+            width: 200%;
+            height: 200%;
+        }
+
+        .calc-btn.number {
+            background: white;
+        }
+
+        .calc-btn.operator {
+            background: #f8f9fa;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .calc-btn.function {
+            background: #e3f2fd;
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        .calc-btn.memory {
+            background: #e8eaf6;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .calc-btn.clear {
+            background: #ffebee;
+            color: var(--accent);
+        }
+
+        .calc-btn.equals {
+            background: linear-gradient(135deg, var(--secondary), #5c6bc0);
+            color: white;
+            font-weight: bold;
+        }
+
+        .calc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .calc-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Dark mode enhancements */
+        body.dark-mode .calculator-container {
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+        }
+
+        body.dark-mode .calculator-display {
+            background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+            color: #ffffff;
+            border-color: #3f51b5;
+        }
+
+        body.dark-mode .calc-btn {
+            background: #333333;
+            color: #ffffff;
+        }
+
+        body.dark-mode .calc-btn.function {
+            background: #1a237e;
+        }
+
+        body.dark-mode .calc-btn.memory {
+            background: #1a237e;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .calculator-container {
+                padding: 0.5rem;
+            }
+
+            .calculator-display {
+                font-size: 1.8rem;
+                padding: 1rem;
+            }
+
+            .calc-btn {
+                padding: 0.8rem;
+                font-size: 1.1rem;
+            }
+
+            .calc-btn.function,
+            .calc-btn.memory {
+                font-size: 0.9rem;
+            }
+
+            .advanced-functions,
+            .scientific-functions,
+            .memory-functions {
+                gap: 0.3rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .calc-btn {
+                padding: 0.6rem;
+                font-size: 1rem;
+            }
+
+            .calc-btn.function,
+            .calc-btn.memory {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+
+    <script>
+        let currentInput = '0';
+        let memory = 0;
+        let history = '';
+        let lastResult = null;
+        let operator = null;
+        let waitingForSecondOperand = false;
+
+        function updateDisplay() {
+            document.getElementById('display').textContent = currentInput;
+            document.getElementById('history').textContent = history;
+        }
+
+        function appendNumber(num) {
+            if (waitingForSecondOperand) {
+                currentInput = num;
+                waitingForSecondOperand = false;
+            } else {
+                currentInput = currentInput === '0' ? num : currentInput + num;
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            if (operator && !waitingForSecondOperand) {
+                calculate();
+            }
+            lastResult = parseFloat(currentInput);
+            operator = op;
+            history = `${currentInput} ${op} `;
+            waitingForSecondOperand = true;
+            updateDisplay();
+        }
+
+        function calculate() {
+            if (operator && waitingForSecondOperand) return;
+            
+            const secondOperand = parseFloat(currentInput);
+            let result;
+
+            switch(operator) {
+                case '+': result = lastResult + secondOperand; break;
+                case '-': result = lastResult - secondOperand; break;
+                case '*': result = lastResult * secondOperand; break;
+                case '/': result = lastResult / secondOperand; break;
+                default: return;
+            }
+
+            history += `${currentInput} = `;
+            currentInput = result.toString();
+            operator = null;
+            waitingForSecondOperand = true;
+            updateDisplay();
+        }
+
+        function clearAll() {
+            currentInput = '0';
+            history = '';
+            lastResult = null;
+            operator = null;
+            waitingForSecondOperand = false;
+            updateDisplay();
+        }
+
+        function clearEntry() {
+            currentInput = '0';
+            updateDisplay();
+        }
+
+        function deleteLast() {
+            if (currentInput.length > 1) {
+                currentInput = currentInput.slice(0, -1);
+            } else {
+                currentInput = '0';
+            }
+            updateDisplay();
+        }
+
+        // Memory functions
+        function memoryStore() {
+            memory = parseFloat(currentInput);
+        }
+
+        function memoryRecall() {
+            currentInput = memory.toString();
+            updateDisplay();
+        }
+
+        function memoryAdd() {
+            memory += parseFloat(currentInput);
+        }
+
+        function memoryClear() {
+            memory = 0;
+        }
+
+        // Scientific functions
+        function calculateSin() {
+            currentInput = Math.sin(parseFloat(currentInput) * Math.PI / 180).toString();
+            updateDisplay();
+        }
+
+        function calculateCos() {
+            currentInput = Math.cos(parseFloat(currentInput) * Math.PI / 180).toString();
+            updateDisplay();
+        }
+
+        function calculateTan() {
+            currentInput = Math.tan(parseFloat(currentInput) * Math.PI / 180).toString();
+            updateDisplay();
+        }
+
+        function calculatePower() {
+            lastResult = parseFloat(currentInput);
+            operator = 'pow';
+            history = `${currentInput} ^ `;
+            waitingForSecondOperand = true;
+            updateDisplay();
+        }
+
+        function calculateSquareRoot() {
+            currentInput = Math.sqrt(parseFloat(currentInput)).toString();
+            updateDisplay();
+        }
+
+        function calculateLog() {
+            currentInput = Math.log10(parseFloat(currentInput)).toString();
+            updateDisplay();
+        }
+
+        function calculateLn() {
+            currentInput = Math.log(parseFloat(currentInput)).toString();
+            updateDisplay();
+        }
+
+        function calculateFactorial() {
+            let n = parseInt(currentInput);
+            let result = 1;
+            for(let i = 2; i <= n; i++) result *= i;
+            currentInput = result.toString();
+            updateDisplay();
+        }
+
+        // Initialize display
+        updateDisplay();
+    </script>
+</div>
+<p style="margin-top: 1rem;">
+    </p><div class="card">
+  <h2>Calculadora matemática: Uma ferramenta essencial para cálculos precisos</h2>
+  <p style="margin-top: 1rem;">
+A nossa calculadora avançada inclui funcionalidades avançadas para resolver operações básicas e complexas com precisão. A nossa calculadora avançada é de grande utilidade para estudantes, profissionais e qualquer pessoa que necessite de efetuar cálculos rápidos e realmente capazes: com funções trigonométricas, logarítmicas e suporte para expressões algébricas, as calculadoras avançadas tornam o cálculo matemático simples e acessível.
+  </p>
+  <ul style="margin-top: 1rem; list-style-type: none;">
+    <li>✓ Interface fácil de utilizar e intuitiva</li>
+    <li>✓ Inclui funções científicas avançadas</li>
+    <li>✓ Suporte para memória e histórico de cálculos</li>
+    <li>✓ A ferramenta é totalmente gratuita e não requer instalação</li>
+  </ul>
+</div></div></main>
+<footer class="footer">
+  <p>© 2025 Calculadoras Online.Todos os direitos reservados.</p>
+</footer>
+
+<button class="dark-mode-toggle" aria-label="Toggle dark mode">🌓</button>
+
+<script>
+document.querySelector('.menu-toggle').addEventListener('click', () => {
+  document.querySelector('.nav-list').classList.toggle('active');
+});
+
+document.querySelector('.dark-mode-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
+const calculator = {
+  init() {
+    this.form = document.getElementById('dateCalculator');
+    this.calcType = document.getElementById('calcType');
+    this.startDate = document.getElementById('startDate');
+    this.endDate = document.getElementById('endDate');
+    this.days = document.getElementById('days');
+    this.excludeWeekends = document.getElementById('excludeWeekends');
+    this.result = document.getElementById('result');
+    this.resultText = document.getElementById('resultText');
+
+    this.calcType.addEventListener('change', () => this.toggleInputs());
+    this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+
+    this.toggleInputs();
+  },
+
+  toggleInputs() {
+    const isDateDiff = this.calcType.value === 'difference';
+    document.getElementById('endDateGroup').style.display = isDateDiff ? 'block' : 'none';
+    document.getElementById('daysGroup').style.display = isDateDiff ? 'none' : 'block';
+  },
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const start = luxon.DateTime.fromISO(this.startDate.value);
+    let result;
+
+    switch(this.calcType.value) {
+      case 'difference':
+        const end = luxon.DateTime.fromISO(this.endDate.value);
+        result = this.calculateDifference(start, end);
+        break;
+      case 'add':
+        result = this.addDays(start, parseInt(this.days.value));
+        break;
+      case 'subtract':
+        result = this.subtractDays(start, parseInt(this.days.value));
+        break;
+      case 'workdays':
+        result = this.calculateWorkdays(start, parseInt(this.days.value));
+        break;
+    }
+
+    this.showResult(result);
+  },
+
+  calculateDifference(start, end) {
+    const diff = end.diff(start, ['days']).toObject();
+    return `A diferença é de ${Math.abs(Math.floor(diff.days))} dias`;
+  },
+
+  addDays(date, days) {
+    const result = date.plus({ days });
+    return `Resultado: ${result.toFormat('yyyy-MM-dd')}`;
+  },
+
+  subtractDays(date, days) {
+    const result = date.minus({ days });
+    return `Resultado: ${result.toFormat('yyyy-MM-dd')}`;
+  },
+
+  calculateWorkdays(start, days) {
+    let result = start;
+    let addedDays = 0;
+    let currentDay = 0;
+
+    while (addedDays < days) {
+      currentDay++;
+      result = start.plus({ days: currentDay });
+      if (!this.excludeWeekends.checked || (result.weekday !== 6 && result.weekday !== 7)) {
+        addedDays++;
+      }
+    }
+
+    return `Resultado: ${result.toFormat('yyyy-MM-dd')}`;
+  },
+
+  showResult(text) {
+    this.resultText.textContent = text;
+    this.result.classList.add('active');
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => calculator.init());
+</script>
+
+</body></html>

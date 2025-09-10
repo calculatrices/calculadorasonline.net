@@ -1,0 +1,761 @@
+<html><head><base href=".">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Seguro Desemprego: Descubra Quanto Vai Receber!</title>
+<meta name="description" content="Calcule o valor e a quantidade de parcelas do seguro desemprego em segundos. Saiba seus direitos e planeje sua renda com facilidade. Experimente agora!.">
+
+<style>
+:root {
+  --primary: #1a237e;     /* Deeper blue */
+  --secondary: #3f51b5;   /* Rich indigo */
+  --accent: #ff4081;      /* Vibrant pink */
+  --light: #f5f5f5;       /* Lighter gray */
+  
+  /* Add new color variables */
+  --gradient-start: #1a237e;
+  --gradient-end: #3f51b5;
+  --text-primary: #2c3e50;
+  --card-shadow: rgba(0,0,0,0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--primary);
+}
+
+/* Header & Logo */
+.header {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  padding: 1rem;
+  color: white;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo svg {
+  width: 40px;
+  height: 40px;
+  animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Navigation */
+.nav {
+  background: var(--light);
+  padding: 1rem;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: var(--primary);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.nav-link:hover {
+  background: var(--secondary);
+  color: white;
+}
+
+/* Mobile Menu */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* Main Content */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--card-shadow);
+  padding: 1.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--secondary), var(--accent));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.current-time {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+/* Calendar */
+.calendar {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar th, .calendar td {
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.calendar td.today {
+  background: var(--secondary);
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+.calendar td.selected {
+  background: var(--accent);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.calendar td:hover {
+  background: var(--light);
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all 0.2s;
+}
+
+/* Weather */
+.weather {
+  text-align: center;
+}
+
+.weather-icon {
+  width: 100px;
+  height: 100px;
+  margin: 1rem auto;
+}
+
+.temperature {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--secondary);
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--light);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.weather-details::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%);
+}
+
+.weather-details:hover::after {
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Holiday List Enhancement */
+#holidays li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+#holidays li:hover {
+  transform: translateX(10px);
+}
+
+.holiday-date {
+  background: var(--secondary);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+/* Footer */
+.footer {
+  background: var(--primary);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
+}
+
+  /* Dark Mode Styles */
+  body.dark-mode {
+    background: #121212;
+    color: #fafafa;
+  }
+  
+  .faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .faq-item {
+    background: var(--light);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    transform: translateX(10px);
+  }
+
+  .faq-item summary {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--primary);
+  }
+
+  .faq-item[open] summary {
+    margin-bottom: 1rem;
+    color: var(--accent);
+  }
+
+  .faq-item p {
+    padding: 0 1rem;
+    line-height: 1.6;
+  }
+
+  /* Dark mode support */
+  body.dark-mode .faq-item {
+    background: #2a2a2a;
+  }
+
+  body.dark-mode .faq-item summary {
+    color: #ffffff;
+  }
+
+body.dark-mode .card {
+  background: #1e1e1e;
+  color: #fafafa;
+}
+
+body.dark-mode .nav {
+  background: #1e1e1e;
+}
+
+body.dark-mode .nav-link {
+  color: #ffffff;
+}
+
+body.dark-mode .weather-details {
+  background: #2a2a2a;
+}
+
+  /* Responsive Design */
+  
+  /* Dropdown Menu Styles */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content a {
+    color: var(--primary);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-content a:hover {
+    background: var(--secondary);
+    color: white;
+    padding-left: 24px;
+  }
+
+  body.dark-mode .dropdown-content {
+    background: #2a2a2a;
+  }
+
+  body.dark-mode .dropdown-content a {
+    color: #ffffff;
+  }
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-list.active {
+    display: flex;
+  }
+
+  .card ul li a:hover {
+    background: var(--secondary);
+    color: white;
+    transform: translateX(10px);
+  }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/luxon@3.0.1/build/global/luxon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='2' width='18' height='20' rx='2'/><line x1='3' y1='10' x2='21' y2='10'/><path d='M7 15h1m4 0h1m4 0h1m-8 4h1m4 0h1'/></svg>"></head>
+<!-- Include the SVG favicon -->
+    
+<body>
+
+<header class="header">
+  <div class="logo">
+     <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="#000">
+        <!-- Calculator Body -->
+        <rect x="8" y="8" width="48" height="48" rx="8" ry="8" fill="#4CAF50"></rect>
+        <!-- Screen -->
+        <rect x="16" y="12" width="32" height="12" fill="#ffffff" rx="2" ry="2"></rect>
+        <!-- Buttons -->
+        <circle cx="20" cy="32" r="3" fill="#ffffff"></circle>
+        <circle cx="32" cy="32" r="3" fill="#ffffff"></circle>
+        <circle cx="44" cy="32" r="3" fill="#ffffff"></circle>
+        <circle cx="20" cy="44" r="3" fill="#ffffff"></circle>
+        <circle cx="32" cy="44" r="3" fill="#ffffff"></circle>
+        <circle cx="44" cy="44" r="3" fill="#ffffff"></circle>
+        <rect x="28" y="52" width="8" height="4" fill="#ffffff"></rect>
+    </svg>
+    <h1>Calculadoras Online</h1>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<nav class="nav">
+  <ul class="nav-list">
+    <li><a href="https://calculadorasonline.net/" class="nav-link">Home</a></li>
+    <li class="dropdown">
+      <a href="https://calculadorasonline.net/calculadoras.html" class="nav-link">Calculadoras</a>
+    </li><li><a href="https://calculadorasonline.net/pol%C3%ADtica-de-privacidade.html" class="nav-link">Política de Privacidade</a></li>
+        <li><a href="https://calculadorasonline.net/contato.html" class="nav-link">Contato</a></li>
+  </ul>
+</nav>
+<main class="main">
+  <div class="content-column" style="max-width: 800px; margin: 0 auto;">
+    <div class="card">
+  <h2 style="color: var(--primary); margin-bottom: 1.5rem; text-align: center; font-size: 2rem; font-weight: 700;">
+    Calculadora de Seguro Desemprego Premium
+  </h2>
+  
+  <div class="calculator-container" style="max-width: 500px; margin: 0 auto; backdrop-filter: blur(10px); background: rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+    
+    <!-- Form inputs -->
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+      <label for="lastSalary" style="display: block; margin-bottom: 0.5rem; color: var(--primary);">Últimos 3 salários:</label>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+        <input type="number" id="salary1" placeholder="Último" style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; width: 100%;">
+        <input type="number" id="salary2" placeholder="Penúltimo" style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; width: 100%;">
+        <input type="number" id="salary3" placeholder="Antepenúltimo" style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; width: 100%;">
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+      <label for="numRequests" style="display: block; margin-bottom: 0.5rem; color: var(--primary);">Número de solicitações:</label>
+      <select id="numRequests" style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; width: 100%;">
+        <option value="1">Primeira solicitação</option>
+        <option value="2">Segunda solicitação</option>
+        <option value="3">Terceira ou mais solicitações</option>
+      </select>
+    </div>
+
+    <!-- Result Display -->
+    <div id="result-display" style="
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      min-height: 80px;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 1.1rem;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    ">
+      O valor das suas parcelas aparecerá aqui
+    </div>
+
+    <!-- Buttons -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+      <button id="calculateBtn" style="
+        padding: 1rem;
+        background: linear-gradient(135deg, var(--secondary), var(--gradient-end));
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      ">Calcular</button>
+      
+      <button id="clearBtn" style="
+        padding: 1rem;
+        background: #f44336;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      ">Limpar</button>
+    </div>
+  </div>
+
+  <!-- Info Cards -->
+  <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+      <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Requisitos Básicos</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li style="margin-bottom: 0.5rem;">✓ TEstar desempregado/li>
+        <li style="margin-bottom: 0.5rem;">✓ Ter sido despedido sem justa causa</li>
+        <li>✓ Ter recebido salário nos últimos 6 meses</li>
+      </ul>
+    </div>
+    
+    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+      <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Número de Parcelas</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li style="margin-bottom: 0.5rem;">• 3 prestações: trabalhou de 6 a 11 meses</li>
+        <li style="margin-bottom: 0.5rem;">• 4 parcelas: trabalhou de 12 a 23 meses</li>
+        <li>• 5 prestações: trabalhou 24 meses ou mais</li>
+      </ul>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 768px) {
+      .calculator-container {
+        padding: 1rem;
+      }
+      
+      .form-group input,
+      .form-group select {
+        font-size: 16px; /* Prevents zoom on mobile */
+      }
+      
+      #result-display {
+        font-size: 1rem;
+        padding: 1rem;
+      }
+      
+      button {
+        padding: 0.8rem;
+        font-size: 1rem;
+      }
+    }
+    
+    /* Hover effects for desktop */
+    @media (hover: hover) {
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+    }
+    
+    /* Active states for better mobile feedback */
+    button:active {
+      transform: translateY(1px);
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const calculateBtn = document.getElementById('calculateBtn');
+      const clearBtn = document.getElementById('clearBtn');
+      const resultDisplay = document.getElementById('result-display');
+      const salary1Input = document.getElementById('salary1');
+      const salary2Input = document.getElementById('salary2');
+      const salary3Input = document.getElementById('salary3');
+      const numRequestsSelect = document.getElementById('numRequests');
+
+      function calculateUnemploymentBenefit(salaries, requestNumber) {
+        const avgSalary = salaries.reduce((a, b) => a + b, 0) / 3;
+        let benefit = 0;
+
+        if (avgSalary <= 1968.36) {
+          benefit = avgSalary * 0.8;
+        } else if (avgSalary <= 3280.93) {
+          benefit = (avgSalary * 0.5) + 1574.69;
+        } else {
+          benefit = 2230.97;
+        }
+
+        return Math.min(2230.97, Math.max(1320.00, benefit));
+      }
+
+      function formatCurrency(value) {
+        return new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        }).format(value);
+      }
+
+      calculateBtn.addEventListener('click', () => {
+        const salaries = [
+          Number(salary1Input.value),
+          Number(salary2Input.value),
+          Number(salary3Input.value)
+        ];
+
+        if (salaries.some(isNaN) || salaries.some(s => s <= 0)) {
+          resultDisplay.innerHTML = '<span style="color: #f44336;">Por favor, preencha todos os salários corretamente</span>';
+          return;
+        }
+
+        const benefit = calculateUnemploymentBenefit(salaries, Number(numRequestsSelect.value));
+        resultDisplay.innerHTML = `
+          <div style="text-align: center;">
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">Valor do Benefício</h3>
+            <p style="font-size: 1.5rem; font-weight: bold; color: var(--secondary);">
+              ${formatCurrency(benefit)}
+            </p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">
+              por parcela
+            </p>
+          </div>
+        `;
+      });
+
+      clearBtn.addEventListener('click', () => {
+        salary1Input.value = '';
+        salary2Input.value = '';
+        salary3Input.value = '';
+        numRequestsSelect.value = '1';
+        resultDisplay.innerHTML = 'O valor das suas parcelas aparecerá aqui';
+      });
+    });
+  </script>
+</div>
+<p style="margin-top: 1rem;">
+    </p><div class="card">
+  <h2>Calculadora de Seguro Desemprego: Como Calcular Seu Benefício</h2>
+  <div style="margin-top: 1.5rem;">
+    <p>A calculadora do seguro-desemprego é a melhor ferramenta para o trabalhador que precisa estimar o valor do benefício após uma demissão sem justa causa. De posse da ferramenta, é possível calcular facilmente a parcela do seguro-desemprego de acordo com as regras atuais da legislação brasileira. Será uma ótima solução para o trabalhador, resultados precisos e informações corretas. 
+</p>
+    
+    <h3 style="margin: 1rem 0">Principais Benefícios:</h3>
+    <ul style="list-style: none; padding-left: 1rem;">
+      <li>✓ Cálculo 100% puro das prestações do seguro de desemprego</li>
+      <li>✓ As mais recentes caraterísticas com as mais recentes regras de benefícios</li>
+      <li>✓ Resultado exato e instantâneo com base nos últimos salários</li>
+    </ul>
+    
+    <p style="margin-top: 1rem">Se utilizar a nossa calculadora, poderá saber facilmente qual o montante do seguro de desemprego que irá receber e planear melhor o seu orçamento durante o período de desemprego.</p>
+  </div>
+</div></div></main>
+<footer class="footer">
+  <p>© 2024 Calculadoras Online.Todos os direitos reservados.</p>
+</footer>
+
+<button class="dark-mode-toggle" aria-label="Toggle dark mode">🌓</button>
+
+<script>
+document.querySelector('.menu-toggle').addEventListener('click', () => {
+  document.querySelector('.nav-list').classList.toggle('active');
+});
+
+document.querySelector('.dark-mode-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
+const calculator = {
+  init() {
+    this.form = document.getElementById('dateCalculator');
+    this.calcType = document.getElementById('calcType');
+    this.startDate = document.getElementById('startDate');
+    this.endDate = document.getElementById('endDate');
+    this.days = document.getElementById('days');
+    this.excludeWeekends = document.getElementById('excludeWeekends');
+    this.result = document.getElementById('result');
+    this.resultText = document.getElementById('resultText');
+
+    this.calcType.addEventListener('change', () => this.toggleInputs());
+    this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+
+    this.toggleInputs();
+  },
+
+  toggleInputs() {
+    const isDateDiff = this.calcType.value === 'difference';
+    document.getElementById('endDateGroup').style.display = isDateDiff ? 'block' : 'none';
+    document.getElementById('daysGroup').style.display = isDateDiff ? 'none' : 'block';
+  },
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const start = luxon.DateTime.fromISO(this.startDate.value);
+    let result;
+
+    switch(this.calcType.value) {
+      case 'difference':
+        const end = luxon.DateTime.fromISO(this.endDate.value);
+        result = this.calculateDifference(start, end);
+        break;
+      case 'add':
+        result = this.addDays(start, parseInt(this.days.value));
+        break;
+      case 'subtract':
+        result = this.subtractDays(start, parseInt(this.days.value));
+        break;
+      case 'workdays':
+        result = this.calculateWorkdays(start, parseInt(this.days.value));
+        break;
+    }
+
+    this.showResult(result);
+  },
+
+  calculateDifference(start, end) {
+    const diff = end.diff(start, ['days']).toObject();
+    return `A diferença é de ${Math.abs(Math.floor(diff.days))} dias`;
+  },
+
+  addDays(date, days) {
+    const result = date.plus({ days });
+    return `Resultado: ${result.toFormat('yyyy-MM-dd')}`;
+  },
+
+  subtractDays(date, days) {
+    const result = date.minus({ days });
+    return `Resultado: ${result.toFormat('yyyy-MM-dd')}`;
+  },
+
+  calculateWorkdays(start, days) {
+    let result = start;
+    let addedDays = 0;
+    let currentDay = 0;
+
+    while (addedDays < days) {
+      currentDay++;
+      result = start.plus({ days: currentDay });
+      if (!this.excludeWeekends.checked || (result.weekday !== 6 && result.weekday !== 7)) {
+        addedDays++;
+      }
+    }
+
+    return `Resultado: ${result.toFormat('yyyy-MM-dd')}`;
+  },
+
+  showResult(text) {
+    this.resultText.textContent = text;
+    this.result.classList.add('active');
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => calculator.init());
+</script>
+
+</body></html>

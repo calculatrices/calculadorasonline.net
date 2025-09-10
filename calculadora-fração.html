@@ -1,0 +1,796 @@
+<html><head><base href=".">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Fração: Fácil e Precisa Online! </title>
+<meta name="description" content="Simplifique frações, faça operações e resolva cálculos com nossa calculadora de fração online. Rápida, prática e grátis para você!.">
+
+<style>
+:root {
+  --primary: #1a237e;     /* Deeper blue */
+  --secondary: #3f51b5;   /* Rich indigo */
+  --accent: #ff4081;      /* Vibrant pink */
+  --light: #f5f5f5;       /* Lighter gray */
+  
+  /* Add new color variables */
+  --gradient-start: #1a237e;
+  --gradient-end: #3f51b5;
+  --text-primary: #2c3e50;
+  --card-shadow: rgba(0,0,0,0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--primary);
+}
+
+/* Header & Logo */
+.header {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  padding: 1rem;
+  color: white;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo svg {
+  width: 40px;
+  height: 40px;
+  animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Navigation */
+.nav {
+  background: var(--light);
+  padding: 1rem;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: var(--primary);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.nav-link:hover {
+  background: var(--secondary);
+  color: white;
+}
+
+/* Mobile Menu */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* Main Content */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--card-shadow);
+  padding: 1.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--secondary), var(--accent));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.current-time {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+/* Calendar */
+.calendar {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar th, .calendar td {
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.calendar td.today {
+  background: var(--secondary);
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+.calendar td.selected {
+  background: var(--accent);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.calendar td:hover {
+  background: var(--light);
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all 0.2s;
+}
+
+/* Weather */
+.weather {
+  text-align: center;
+}
+
+.weather-icon {
+  width: 100px;
+  height: 100px;
+  margin: 1rem auto;
+}
+
+.temperature {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--secondary);
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--light);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.weather-details::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%);
+}
+
+.weather-details:hover::after {
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Holiday List Enhancement */
+#holidays li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+#holidays li:hover {
+  transform: translateX(10px);
+}
+
+.holiday-date {
+  background: var(--secondary);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+/* Footer */
+.footer {
+  background: var(--primary);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
+}
+
+  /* Dark Mode Styles */
+  body.dark-mode {
+    background: #121212;
+    color: #fafafa;
+  }
+  
+  .faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .faq-item {
+    background: var(--light);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    transform: translateX(10px);
+  }
+
+  .faq-item summary {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--primary);
+  }
+
+  .faq-item[open] summary {
+    margin-bottom: 1rem;
+    color: var(--accent);
+  }
+
+  .faq-item p {
+    padding: 0 1rem;
+    line-height: 1.6;
+  }
+
+  /* Dark mode support */
+  body.dark-mode .faq-item {
+    background: #2a2a2a;
+  }
+
+  body.dark-mode .faq-item summary {
+    color: #ffffff;
+  }
+
+body.dark-mode .card {
+  background: #1e1e1e;
+  color: #fafafa;
+}
+
+body.dark-mode .nav {
+  background: #1e1e1e;
+}
+
+body.dark-mode .nav-link {
+  color: #ffffff;
+}
+
+body.dark-mode .weather-details {
+  background: #2a2a2a;
+}
+
+  /* Responsive Design */
+  
+  /* Dropdown Menu Styles */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content a {
+    color: var(--primary);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-content a:hover {
+    background: var(--secondary);
+    color: white;
+    padding-left: 24px;
+  }
+
+  body.dark-mode .dropdown-content {
+    background: #2a2a2a;
+  }
+
+  body.dark-mode .dropdown-content a {
+    color: #ffffff;
+  }
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-list.active {
+    display: flex;
+  }
+
+  .card ul li a:hover {
+    background: var(--secondary);
+    color: white;
+    transform: translateX(10px);
+  }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/luxon@3.0.1/build/global/luxon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='2' width='18' height='20' rx='2'/><line x1='3' y1='10' x2='21' y2='10'/><path d='M7 15h1m4 0h1m4 0h1m-8 4h1m4 0h1'/></svg>"></head>
+<!-- Include the SVG favicon -->
+    
+<body>
+
+<header class="header">
+  <div class="logo">
+     <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="#000">
+        <!-- Calculator Body -->
+        <rect x="8" y="8" width="48" height="48" rx="8" ry="8" fill="#4CAF50"></rect>
+        <!-- Screen -->
+        <rect x="16" y="12" width="32" height="12" fill="#ffffff" rx="2" ry="2"></rect>
+        <!-- Buttons -->
+        <circle cx="20" cy="32" r="3" fill="#ffffff"></circle>
+        <circle cx="32" cy="32" r="3" fill="#ffffff"></circle>
+        <circle cx="44" cy="32" r="3" fill="#ffffff"></circle>
+        <circle cx="20" cy="44" r="3" fill="#ffffff"></circle>
+        <circle cx="32" cy="44" r="3" fill="#ffffff"></circle>
+        <circle cx="44" cy="44" r="3" fill="#ffffff"></circle>
+        <rect x="28" y="52" width="8" height="4" fill="#ffffff"></rect>
+    </svg>
+    <h1>Calculadoras Online</h1>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<nav class="nav">
+  <ul class="nav-list">
+    <li><a href="https://calculadorasonline.net/" class="nav-link">Home</a></li>
+    <li class="dropdown">
+      <a href="https://calculadorasonline.net/calculadoras.html" class="nav-link">Calculadoras</a>
+    </li><li><a href="https://calculadorasonline.net/pol%C3%ADtica-de-privacidade.html" class="nav-link">Política de Privacidade</a></li>
+        <li><a href="https://calculadorasonline.net/contato.html" class="nav-link">Contato</a></li>
+  </ul>
+</nav>
+<main class="main">
+  <div class="content-column" style="max-width: 800px; margin: 0 auto;">
+    <div class="card">
+    <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Calculadora de Frações</h2>
+    
+    <div class="calculator-container" style="
+        max-width: 100%;
+        margin: 0 auto;
+        background: linear-gradient(145deg, #ffffff, #f5f5f5);
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    ">
+        <!-- Display -->
+        <div class="fraction-display" style="
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 4px 12px rgba(0,0,0,0.08);
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1rem;
+            align-items: center;
+        ">
+            <div class="fraction-input" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <input type="number" id="num1" placeholder="Numerador" style="
+                    width: 100%;
+                    padding: 0.8rem;
+                    border: 2px solid #e0e0e0;
+                    border-radius: 8px;
+                    font-size: 1.2rem;
+                    text-align: center;
+                ">
+                <hr style="border: 2px solid #333; margin: 0;">
+                <input type="number" id="den1" placeholder="Denominador" style="
+                    width: 100%;
+                    padding: 0.8rem;
+                    border: 2px solid #e0e0e0;
+                    border-radius: 8px;
+                    font-size: 1.2rem;
+                    text-align: center;
+                ">
+            </div>
+            
+            <select id="operation" style="
+                padding: 0.8rem;
+                border: 2px solid #e0e0e0;
+                border-radius: 8px;
+                font-size: 1.2rem;
+                background: #fff;
+            ">
+                <option value="+">+</option>
+                <option value="-">−</option>
+                <option value="*">×</option>
+                <option value="/">÷</option>
+            </select>
+            
+            <div class="fraction-input" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <input type="number" id="num2" placeholder="Numerador" style="
+                    width: 100%;
+                    padding: 0.8rem;
+                    border: 2px solid #e0e0e0;
+                    border-radius: 8px;
+                    font-size: 1.2rem;
+                    text-align: center;
+                ">
+                <hr style="border: 2px solid #333; margin: 0;">
+                <input type="number" id="den2" placeholder="Denominador" style="
+                    width: 100%;
+                    padding: 0.8rem;
+                    border: 2px solid #e0e0e0;
+                    border-radius: 8px;
+                    font-size: 1.2rem;
+                    text-align: center;
+                ">
+            </div>
+        </div>
+
+        <div class="buttons" style="
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        ">
+            <button id="calculate" style="
+                background: #4CAF50;
+                color: white;
+                border: none;
+                padding: 1rem;
+                border-radius: 12px;
+                font-size: 1.2rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.2s;
+            ">Calcular</button>
+            
+            <button id="clear" style="
+                background: #f44336;
+                color: white;
+                border: none;
+                padding: 1rem;
+                border-radius: 12px;
+                font-size: 1.2rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.2s;
+            ">Limpar</button>
+        </div>
+
+        <div class="result" style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        ">
+            <div id="result">Resultado aparecerá aqui</div>
+        </div>
+    </div>
+
+    <script>
+        // Function to calculate GCD (Greatest Common Divisor)
+        function gcd(a, b) {
+            a = Math.abs(a);
+            b = Math.abs(b);
+            while(b) {
+                let t = b;
+                b = a % b;
+                a = t;
+            }
+            return a;
+        }
+
+        // Function to simplify fraction
+        function simplifyFraction(numerator, denominator) {
+            const divisor = gcd(numerator, denominator);
+            return {
+                numerator: numerator / divisor,
+                denominator: denominator / divisor
+            };
+        }
+
+        // Function to calculate fractions
+        function calculateFractions() {
+            const num1 = parseInt(document.getElementById('num1').value);
+            const den1 = parseInt(document.getElementById('den1').value);
+            const num2 = parseInt(document.getElementById('num2').value);
+            const den2 = parseInt(document.getElementById('den2').value);
+            const operation = document.getElementById('operation').value;
+
+            // Validate inputs
+            if (!num1 || !den1 || !num2 || !den2 || den1 === 0 || den2 === 0) {
+                document.getElementById('result').textContent = 'Por favor, preencha todos os campos corretamente';
+                return;
+            }
+
+            let resultNum, resultDen;
+
+            switch(operation) {
+                case '+':
+                    resultNum = (num1 * den2) + (num2 * den1);
+                    resultDen = den1 * den2;
+                    break;
+                case '-':
+                    resultNum = (num1 * den2) - (num2 * den1);
+                    resultDen = den1 * den2;
+                    break;
+                case '*':
+                    resultNum = num1 * num2;
+                    resultDen = den1 * den2;
+                    break;
+                case '/':
+                    if (num2 === 0) {
+                        document.getElementById('result').textContent = 'Não é possível dividir por zero';
+                        return;
+                    }
+                    resultNum = num1 * den2;
+                    resultDen = den1 * num2;
+                    break;
+            }
+
+            // Simplify the result
+            const simplified = simplifyFraction(resultNum, resultDen);
+            
+            // Format the result
+            let resultText;
+            if (simplified.denominator === 1) {
+                resultText = `${simplified.numerator}`;
+            } else {
+                resultText = `${simplified.numerator}/${simplified.denominator}`;
+            }
+
+            document.getElementById('result').textContent = resultText;
+        }
+
+        // Clear all inputs
+        function clearInputs() {
+            document.getElementById('num1').value = '';
+            document.getElementById('den1').value = '';
+            document.getElementById('num2').value = '';
+            document.getElementById('den2').value = '';
+            document.getElementById('result').textContent = 'Resultado aparecerá aqui';
+        }
+
+        // Add event listeners
+        document.getElementById('calculate').addEventListener('click', calculateFractions);
+        document.getElementById('clear').addEventListener('click', clearInputs);
+
+        // Add hover effects
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'scale(1.05)';
+                button.style.boxShadow = '0 6px 20px rgba(0,0,0,0.2)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'scale(1)';
+                button.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</div>
+<p style="margin-top: 1rem;">
+    </p><div class="card">
+  <h2>Como utilizar a calculadora de fracções online</h2>
+  <p style="margin-top: 1rem;">
+   Esta é uma ferramenta excelente e fácil de utilizar para efetuar operações matemáticas com fracções: efetuar adição, substituição, multiplicação e divisão de fracções de forma rápida e precisa.
+  </p>
+  <h3 style="margin-top: 1.5rem;">Principais Benefícios:</h3>
+  <ul style="list-style: none; padding-left: 0; margin-top: 1rem;">
+    <li style="margin-bottom: 0.5rem;">✓ Grande utilidade para estudantes e professores.</li>
+    <li style="margin-bottom: 0.5rem;">✓ ISimplificação automática dos resultados.</li>
+    <li style="margin-bottom: 0.5rem;">✓ Cálculos instantâneos e precisos.</li>
+    <li style="margin-bottom: 0.5rem;">✓ IInterface intuitiva e de fácil utilização.</li>
+  </ul>
+  <p style="margin-top: 1.5rem;">
+    Efectue operações com fracções de uma forma simples e eficiente. Basta introduzir o número, selecionar a operação de deserto e obter o resultado simplificado. A calculadora é perfeita para aprender matemática e resolver problemas do dia a dia.
+  </p>
+</div></div></main>
+<footer class="footer">
+  <p>© 2025 Calculadoras Online.Todos os direitos reservados.</p>
+</footer>
+
+<button class="dark-mode-toggle" aria-label="Toggle dark mode">🌓</button>
+
+<script>
+document.querySelector('.menu-toggle').addEventListener('click', () => {
+  document.querySelector('.nav-list').classList.toggle('active');
+});
+
+document.querySelector('.dark-mode-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
+const calculator = {
+  init() {
+    this.form = document.getElementById('dateCalculator');
+    this.calcType = document.getElementById('calcType');
+    this.startDate = document.getElementById('startDate');
+    this.endDate = document.getElementById('endDate');
+    this.days = document.getElementById('days');
+    this.excludeWeekends = document.getElementById('excludeWeekends');
+    this.result = document.getElementById('result');
+    this.resultText = document.getElementById('resultText');
+
+    this.calcType.addEventListener('change', () => this.toggleInputs());
+    this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+
+    this.toggleInputs();
+  },
+
+  toggleInputs() {
+    const isDateDiff = this.calcType.value === 'difference';
+    document.getElementById('endDateGroup').style.display = isDateDiff ? 'block' : 'none';
+    document.getElementById('daysGroup').style.display = isDateDiff ? 'none' : 'block';
+  },
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const start = luxon.DateTime.fromISO(this.startDate.value);
+    let result;
+
+    switch(this.calcType.value) {
+      case 'difference':
+        const end = luxon.DateTime.fromISO(this.endDate.value);
+        result = this.calculateDifference(start, end);
+        break;
+      case 'add':
+        result = this.addDays(start, parseInt(this.days.value));
+        break;
+      case 'subtract':
+        result = this.subtractDays(start, parseInt(this.days.value));
+        break;
+      case 'workdays':
+        result = this.calculateWorkdays(start, parseInt(this.days.value));
+        break;
+    }
+
+    this.showResult(result);
+  },
+
+  calculateDifference(start, end) {
+    const diff = end.diff(start, ['days']).toObject();
+    return `A diferença é de ${Math.abs(Math.floor(diff.days))} dias`;
+  },
+
+  addDays(date, days) {
+    const result = date.plus({ days });
+    return `Resultado: ${result.toFormat('yyyy-MM-dd')}`;
+  },
+
+  subtractDays(date, days) {
+    const result = date.minus({ days });
+    return `Resultado: ${result.toFormat('yyyy-MM-dd')}`;
+  },
+
+  calculateWorkdays(start, days) {
+    let result = start;
+    let addedDays = 0;
+    let currentDay = 0;
+
+    while (addedDays < days) {
+      currentDay++;
+      result = start.plus({ days: currentDay });
+      if (!this.excludeWeekends.checked || (result.weekday !== 6 && result.weekday !== 7)) {
+        addedDays++;
+      }
+    }
+
+    return `Resultado: ${result.toFormat('yyyy-MM-dd')}`;
+  },
+
+  showResult(text) {
+    this.resultText.textContent = text;
+    this.result.classList.add('active');
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => calculator.init());
+</script>
+
+</body></html>

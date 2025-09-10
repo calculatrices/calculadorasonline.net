@@ -1,0 +1,903 @@
+<html><head><base href=".">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Rescisão: Saiba Quanto Você Deve Receber!</title>
+<meta name="description" content="Use a calculadora de rescisão para calcular o valor da sua indenização ao ser demitido, considerando todos os direitos trabalhistas.">
+
+<style>
+:root {
+  --primary: #1a237e;     /* Deeper blue */
+  --secondary: #3f51b5;   /* Rich indigo */
+  --accent: #ff4081;      /* Vibrant pink */
+  --light: #f5f5f5;       /* Lighter gray */
+  
+  /* Add new color variables */
+  --gradient-start: #1a237e;
+  --gradient-end: #3f51b5;
+  --text-primary: #2c3e50;
+  --card-shadow: rgba(0,0,0,0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--primary);
+}
+
+/* Header & Logo */
+.header {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  padding: 1rem;
+  color: white;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo svg {
+  width: 40px;
+  height: 40px;
+  animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Navigation */
+.nav {
+  background: var(--light);
+  padding: 1rem;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: var(--primary);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.nav-link:hover {
+  background: var(--secondary);
+  color: white;
+}
+
+/* Mobile Menu */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* Main Content */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--card-shadow);
+  padding: 1.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--secondary), var(--accent));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.current-time {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+/* Calendar */
+.calendar {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar th, .calendar td {
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.calendar td.today {
+  background: var(--secondary);
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+.calendar td.selected {
+  background: var(--accent);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.calendar td:hover {
+  background: var(--light);
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all 0.2s;
+}
+
+/* Weather */
+.weather {
+  text-align: center;
+}
+
+.weather-icon {
+  width: 100px;
+  height: 100px;
+  margin: 1rem auto;
+}
+
+.temperature {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--secondary);
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--light);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.weather-details::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%);
+}
+
+.weather-details:hover::after {
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Holiday List Enhancement */
+#holidays li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+#holidays li:hover {
+  transform: translateX(10px);
+}
+
+.holiday-date {
+  background: var(--secondary);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+/* Footer */
+.footer {
+  background: var(--primary);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
+}
+
+  /* Dark Mode Styles */
+  body.dark-mode {
+    background: #121212;
+    color: #fafafa;
+  }
+  
+  .faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .faq-item {
+    background: var(--light);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    transform: translateX(10px);
+  }
+
+  .faq-item summary {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--primary);
+  }
+
+  .faq-item[open] summary {
+    margin-bottom: 1rem;
+    color: var(--accent);
+  }
+
+  .faq-item p {
+    padding: 0 1rem;
+    line-height: 1.6;
+  }
+
+  /* Dark mode support */
+  body.dark-mode .faq-item {
+    background: #2a2a2a;
+  }
+
+  body.dark-mode .faq-item summary {
+    color: #ffffff;
+  }
+
+body.dark-mode .card {
+  background: #1e1e1e;
+  color: #fafafa;
+}
+
+body.dark-mode .nav {
+  background: #1e1e1e;
+}
+
+body.dark-mode .nav-link {
+  color: #ffffff;
+}
+
+body.dark-mode .weather-details {
+  background: #2a2a2a;
+}
+
+  /* Responsive Design */
+  
+  /* Dropdown Menu Styles */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content a {
+    color: var(--primary);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-content a:hover {
+    background: var(--secondary);
+    color: white;
+    padding-left: 24px;
+  }
+
+  body.dark-mode .dropdown-content {
+    background: #2a2a2a;
+  }
+
+  body.dark-mode .dropdown-content a {
+    color: #ffffff;
+  }
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-list.active {
+    display: flex;
+  }
+
+  .card ul li a:hover {
+    background: var(--secondary);
+    color: white;
+    transform: translateX(10px);
+  }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/luxon@3.0.1/build/global/luxon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='2' width='18' height='20' rx='2'/><line x1='3' y1='10' x2='21' y2='10'/><path d='M7 15h1m4 0h1m4 0h1m-8 4h1m4 0h1'/></svg>"></head>
+<!-- Include the SVG favicon -->
+    
+<body>
+
+<header class="header">
+  <div class="logo">
+     <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="#000">
+        <!-- Calculator Body -->
+        <rect x="8" y="8" width="48" height="48" rx="8" ry="8" fill="#4CAF50"></rect>
+        <!-- Screen -->
+        <rect x="16" y="12" width="32" height="12" fill="#ffffff" rx="2" ry="2"></rect>
+        <!-- Buttons -->
+        <circle cx="20" cy="32" r="3" fill="#ffffff"></circle>
+        <circle cx="32" cy="32" r="3" fill="#ffffff"></circle>
+        <circle cx="44" cy="32" r="3" fill="#ffffff"></circle>
+        <circle cx="20" cy="44" r="3" fill="#ffffff"></circle>
+        <circle cx="32" cy="44" r="3" fill="#ffffff"></circle>
+        <circle cx="44" cy="44" r="3" fill="#ffffff"></circle>
+        <rect x="28" y="52" width="8" height="4" fill="#ffffff"></rect>
+    </svg>
+    <h1>Calculadoras Online</h1>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<nav class="nav">
+  <ul class="nav-list">
+    <li><a href="https://calculadorasonline.net/" class="nav-link">Home</a></li>
+    <li class="dropdown">
+      <a href="https://calculadorasonline.net/calculadoras.html" class="nav-link">Calculadoras</a>
+    </li><li><a href="https://calculadorasonline.net/pol%C3%ADtica-de-privacidade.html" class="nav-link">Política de Privacidade</a></li>
+        <li><a href="https://calculadorasonline.net/contato.html" class="nav-link">Contato</a></li>
+  </ul>
+</nav>
+<main class="main">
+  <div class="content-column" style="max-width: 800px; margin: 0 auto;">
+    <div class="card">
+  <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Calculadora de Rescisão Trabalhista</h2>
+
+  <div class="rescission-calculator">
+    <form id="rescissionForm" class="form-grid">
+      <div class="input-group">
+        <label>Último Salário Bruto (R$)</label>
+        <input type="number" id="salary" min="0" step="0.01" required="" class="form-input">
+      </div>
+
+      <div class="input-group">
+        <label>Data de Admissão</label>
+        <input type="date" id="startDate" required="" class="form-input">
+      </div>
+
+      <div class="input-group">
+        <label>Data de Demissão</label>
+        <input type="date" id="endDate" required="" class="form-input">
+      </div>
+
+      <div class="input-group">
+        <label>Motivo da Rescisão</label>
+        <select id="rescissionType" class="form-input">
+          <option value="withoutCause">Sem Justa Causa</option>
+          <option value="withCause">Com Justa Causa</option>
+          <option value="voluntary">Pedido de Demissão</option>
+          <option value="layoff">Layoff</option>
+          <option value="mutual">Acordo Mútuo</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Férias Vencidas (em meses)</label>
+        <input type="number" id="vacationMonths" min="0" max="12" value="0" class="form-input">
+      </div>
+
+      <div class="input-group">
+        <label>Saldo de Dias Trabalhados no Mês</label>
+        <input type="number" id="workedDays" min="0" max="31" value="0" class="form-input">
+      </div>
+
+      <div class="input-group">
+        <label>Horas Extras (média mensal)</label>
+        <input type="number" id="overtimeHours" min="0" step="0.5" value="0" class="form-input">
+      </div>
+
+      <div class="input-group">
+        <label>Valor das Horas Extras (R$/hora)</label>
+        <input type="number" id="overtimeValue" min="0" step="0.01" value="0" class="form-input">
+      </div>
+
+      <div class="input-group checkbox-group">
+        <label>
+          <input type="checkbox" id="hasInsalubrity">
+          Adicional de Insalubridade
+        </label>
+      </div>
+
+      <div class="input-group checkbox-group">
+        <label>
+          <input type="checkbox" id="hasDangerousPay">
+          Adicional de Periculosidade
+        </label>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="calculate-btn">Calcular Rescisão</button>
+        <button type="button" class="clear-btn" onclick="clearForm()">Limpar Campos</button>
+      </div>
+    </form>
+
+    <div id="results" class="results-container" style="display: none;">
+      <h3>Resultado do Cálculo</h3>
+      <div class="results-grid">
+        <div class="result-item">
+          <span class="result-label">Saldo de Salário:</span>
+          <span class="result-value" id="salaryBalance">R$ 0,00</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">13º Proporcional:</span>
+          <span class="result-value" id="proportional13">R$ 0,00</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Férias Proporcionais:</span>
+          <span class="result-value" id="proportionalVacation">R$ 0,00</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">1/3 Férias:</span>
+          <span class="result-value" id="vacationBonus">R$ 0,00</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">FGTS a Recolher:</span>
+          <span class="result-value" id="fgtsValue">R$ 0,00</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Multa FGTS:</span>
+          <span class="result-value" id="fgtsFine">R$ 0,00</span>
+        </div>
+        <div class="result-item total">
+          <span class="result-label">Total Bruto:</span>
+          <span class="result-value" id="totalGross">R$ 0,00</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Desconto INSS:</span>
+          <span class="result-value" id="inssDiscount">R$ 0,00</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Desconto IRRF:</span>
+          <span class="result-value" id="irrfDiscount">R$ 0,00</span>
+        </div>
+        <div class="result-item total-net">
+          <span class="result-label">Total Líquido:</span>
+          <span class="result-value" id="totalNet">R$ 0,00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .rescission-calculator {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-input {
+      padding: 0.8rem;
+      border: 2px solid var(--secondary);
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.2);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+    }
+
+    .button-group {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .calculate-btn, .clear-btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .calculate-btn {
+      background: var(--primary);
+      color: white;
+    }
+
+    .clear-btn {
+      background: #d32f2f;
+      color: white;
+    }
+
+    .calculate-btn:hover, .clear-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .results-container {
+      background: var(--light);
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .result-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .result-label {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .result-value {
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .total, .total-net {
+      grid-column: 1 / -1;
+      background: var(--primary);
+      color: white;
+    }
+
+    .total .result-label, .total .result-value,
+    .total-net .result-label, .total-net .result-value {
+      color: white;
+    }
+  </style>
+
+  <script>
+    function calculateRescission() {
+      const form = document.getElementById('rescissionForm');
+      const results = document.getElementById('results');
+      
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Obter valores do formulário
+        const salary = parseFloat(document.getElementById('salary').value);
+        const startDate = new Date(document.getElementById('startDate').value);
+        const endDate = new Date(document.getElementById('endDate').value);
+        const rescissionType = document.getElementById('rescissionType').value;
+        const workedDays = parseInt(document.getElementById('workedDays').value);
+        const overtimeHours = parseFloat(document.getElementById('overtimeHours').value);
+        const overtimeValue = parseFloat(document.getElementById('overtimeValue').value);
+        
+        // Cálculos básicos
+        const monthsWorked = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24 * 30));
+        const dailySalary = salary / 30;
+        
+        // Saldo de salário
+        const salaryBalance = dailySalary * workedDays;
+        
+        // 13º proporcional
+        const proportional13 = (salary / 12) * (endDate.getMonth() + 1);
+        
+        // Férias proporcionais
+        const proportionalVacation = (salary / 12) * monthsWorked;
+        const vacationBonus = proportionalVacation / 3;
+        
+        // FGTS
+        const fgtsValue = salary * 0.08;
+        const fgtsFine = rescissionType === 'withoutCause' ? fgtsValue * 0.4 : 0;
+        
+        // Horas extras
+        const overtimeTotal = overtimeHours * overtimeValue;
+        
+        // Total bruto
+        const totalGross = salaryBalance + proportional13 + proportionalVacation + 
+                          vacationBonus + fgtsValue + fgtsFine + overtimeTotal;
+        
+        // Descontos
+        const inssDiscount = calculateINSS(totalGross);
+        const irrfDiscount = calculateIRRF(totalGross - inssDiscount);
+        
+        // Total líquido
+        const totalNet = totalGross - inssDiscount - irrfDiscount;
+        
+        // Exibir resultados
+        document.getElementById('salaryBalance').textContent = formatCurrency(salaryBalance);
+        document.getElementById('proportional13').textContent = formatCurrency(proportional13);
+        document.getElementById('proportionalVacation').textContent = formatCurrency(proportionalVacation);
+        document.getElementById('vacationBonus').textContent = formatCurrency(vacationBonus);
+        document.getElementById('fgtsValue').textContent = formatCurrency(fgtsValue);
+        document.getElementById('fgtsFine').textContent = formatCurrency(fgtsFine);
+        document.getElementById('totalGross').textContent = formatCurrency(totalGross);
+        document.getElementById('inssDiscount').textContent = formatCurrency(inssDiscount);
+        document.getElementById('irrfDiscount').textContent = formatCurrency(irrfDiscount);
+        document.getElementById('totalNet').textContent = formatCurrency(totalNet);
+        
+        results.style.display = 'block';
+      });
+    }
+
+    function calculateINSS(value) {
+      if (value <= 1320.00) return value * 0.075;
+      if (value <= 2571.29) return value * 0.09;
+      if (value <= 3856.94) return value * 0.12;
+      if (value <= 7507.49) return value * 0.14;
+      return 877.24; // Teto do INSS 2024
+    }
+
+    function calculateIRRF(value) {
+      if (value <= 2112.00) return 0;
+      if (value <= 2826.65) return (value * 0.075) - 158.40;
+      if (value <= 3751.05) return (value * 0.15) - 370.40;
+      if (value <= 4664.68) return (value * 0.225) - 651.73;
+      return (value * 0.275) - 884.96;
+    }
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      }).format(value);
+    }
+
+    function clearForm() {
+      document.getElementById('rescissionForm').reset();
+      document.getElementById('results').style.display = 'none';
+    }
+
+    // Inicializar calculadora
+    document.addEventListener('DOMContentLoaded', calculateRescission);
+  </script>
+</div>
+<p style="margin-top: 1rem;">
+    </p><div class="card">
+  <div class="seo-optimized-content">
+    <p>
+A calculadora de verbas rescisórias vem com recursos avançados para quem precisa calcular as verbas rescisórias do seu contrato de trabalho CLT. Ela é ótima para cálculos como Férias proporcionais, 13º Salário, FGTS, verbas rescisórias e aviso prévio.
+    </p>
+  </div>
+</div>
+   <p style="margin-top: 1rem;">
+    </p><div></div>
+    
+</div></main>
+<footer class="footer">
+  <p>© 2025 Calculadoras Online.Todos os direitos reservados.</p>
+</footer>
+
+<button class="dark-mode-toggle" aria-label="Toggle dark mode">🌓</button>
+
+<script>
+document.querySelector('.menu-toggle').addEventListener('click', () => {
+  document.querySelector('.nav-list').classList.toggle('active');
+});
+
+document.querySelector('.dark-mode-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
+const calculator = {
+  init() {
+    this.form = document.getElementById('dateCalculator');
+    this.calcType = document.getElementById('calcType');
+    this.startDate = document.getElementById('startDate');
+    this.endDate = document.getElementById('endDate');
+    this.days = document.getElementById('days');
+    this.excludeWeekends = document.getElementById('excludeWeekends');
+    this.result = document.getElementById('result');
+    this.resultText = document.getElementById('resultText');
+
+    this.calcType.addEventListener('change', () => this.toggleInputs());
+    this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+
+    this.toggleInputs();
+  },
+
+  toggleInputs() {
+    const isDateDiff = this.calcType.value === 'difference';
+    document.getElementById('endDateGroup').style.display = isDateDiff ? 'block' : 'none';
+    document.getElementById('daysGroup').style.display = isDateDiff ? 'none' : 'block';
+  },
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const start = luxon.DateTime.fromISO(this.startDate.value);
+    let result;
+
+    switch(this.calcType.value) {
+      case 'difference':
+        const end = luxon.DateTime.fromISO(this.endDate.value);
+        result = this.calculateDifference(start, end);
+        break;
+      case 'add':
+        result = this.addDays(start, parseInt(this.days.value));
+        break;
+      case 'subtract':
+        result = this.subtractDays(start, parseInt(this.days.value));
+        break;
+      case 'workdays':
+        result = this.calculateWorkdays(start, parseInt(this.days.value));
+        break;
+    }
+
+    this.showResult(result);
+  },
+
+  calculateDifference(start, end) {
+    const diff = end.diff(start, ['days']).toObject();
+    return `A diferença é de ${Math.abs(Math.floor(diff.days))} dias`;
+  },
+
+  addDays(date, days) {
+    const result = date.plus({ days });
+    return `Resultado: ${result.toFormat('yyyy-MM-dd')}`;
+  },
+
+  subtractDays(date, days) {
+    const result = date.minus({ days });
+    return `Resultado: ${result.toFormat('yyyy-MM-dd')}`;
+  },
+
+  calculateWorkdays(start, days) {
+    let result = start;
+    let addedDays = 0;
+    let currentDay = 0;
+
+    while (addedDays < days) {
+      currentDay++;
+      result = start.plus({ days: currentDay });
+      if (!this.excludeWeekends.checked || (result.weekday !== 6 && result.weekday !== 7)) {
+        addedDays++;
+      }
+    }
+
+    return `Resultado: ${result.toFormat('yyyy-MM-dd')}`;
+  },
+
+  showResult(text) {
+    this.resultText.textContent = text;
+    this.result.classList.add('active');
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => calculator.init());
+</script>
+
+</body></html>
